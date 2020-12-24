@@ -46,7 +46,7 @@ class IntentionProcessor : AbstractProcessor() {
                     return true
                 }
 
-                val name = element.simpleName.toString() + "Utils"
+                val name = element.simpleName.toString() + "Util"
                 val kotlinFile = parseFile(element, name)
 
                 if (element is TypeElement) {

@@ -23,27 +23,34 @@ class MainActivity : AppCompatActivity() {
         println("int extra = " + intent.getIntExtra(EXTRA_INT, 0))
 
         binding.button.setOnClickListener {
-            val intent = TestRouterUtils.getIntent(
+            val intent = MainActivityRouterUtil.getIntent(
                 this,
-                "testvalue",
                 TestParcelable("test1"),
                 TestSerializable("test2"),
                 456
             )
             println(intent)
             startActivity(intent)
+            MainActivityRouterUtil.getIntent(this, "value", null)
         }
 
     }
 
     @Intention(MainActivity::class)
-    interface TestRouter {
+    interface MainActivityRouter {
+
         fun getIntent(
             context: Context,
-            @Extra(EXTRA_STRING) stringValue: String = "default value",
+            @Extra("MyKey") value: String?,
+            @Extra("MyKey2") value2: Int = 345
+        ): Intent
+
+        fun getIntent(
+            context: Context,
             @Extra(EXTRA_PARCELABLE) parcelable: TestParcelable,
             @Extra(EXTRA_SERIALIZABLE) serializable: TestSerializable,
             @Extra(EXTRA_INT) intValue: Int? = null,
+            @Extra(EXTRA_STRING) stringValue: String = "default value",
             @Extra(EXTRA_BYTE) byteValue: Byte? = null,
             @Extra(EXTRA_CHAR) charValue: Char? = null,
             @Extra(EXTRA_SHORT) shortValue: Short? = null,
