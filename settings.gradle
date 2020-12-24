@@ -1,0 +1,4 @@
+include ':lib'
+include ':compiler'
+include ':app'
+rootProject.name = "Intention"
